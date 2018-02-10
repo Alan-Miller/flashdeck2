@@ -1,8 +1,6 @@
 # FlashDeck2
 
 ## Colors
-![colors](./coolors1.png "color scheme")
-
 ![#820263](https://placehold.it/15/820263/000000?text=+) 
 <font color="#820263">#820263</font>
 ![#D90368](https://placehold.it/15/D90368/000000?text=+) 
@@ -13,3 +11,5 @@
 <font color="#2E294E">#2E294E</font>
 ![#0A0908](https://placehold.it/15/0A0908/000000?text=+) 
 <font color="#0A0908">#0A0908</font>
+
+![colors](./coolors1.png "color scheme")
