@@ -1,7 +1,7 @@
 # FlashDeck2
 
 ## Colors
-![colors](./dev_assets/coolors1.png "color scheme")
+![colors](./coolors1.png "color scheme")
 <font color="#820263">#820263</font>
 <font color="#D90368">#D90368</font>
 <font color="#EADEDA">#EADEDA</font>
