@@ -2,8 +2,9 @@
 
 ## Colors
 ![colors](./coolors1.png "color scheme")
-<font color="#820263">#820263</font>
-<font color="#D90368">#D90368</font>
-<font color="#EADEDA">#EADEDA</font>
-<font color="#2E294E">#2E294E</font>
-<font color="#0A0908">#0A0908</font>
+
+![#820263](https://placehold.it/15/820263/000000?text=+) `#820263`
+![#D90368](https://placehold.it/15/D90368/000000?text=+) `#D90368`
+![#EADEDA](https://placehold.it/15/EADEDA/000000?text=+) `#EADEDA`
+![#2E294E](https://placehold.it/15/2E294E/000000?text=+) `#2E294E`
+![#0A0908](https://placehold.it/15/0A0908/000000?text=+) `#0A0908`
