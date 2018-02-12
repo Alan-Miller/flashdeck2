@@ -1,6 +1,6 @@
 # FlashDeck2
 
-## Colors
+## Color Scheme
 ![#820263](https://placehold.it/15/820263/000000?text=+) 
 <font color="#820263">#820263</font>
 ![#D90368](https://placehold.it/15/D90368/000000?text=+) 
