@@ -1,3 +1,9 @@
+# Quiz
+This section is for simply testing yourself with flash cards.
+
+# Manage
+This section is for managing your flash cards.
+
 # FlashDeck2
 
 ## Color Scheme
