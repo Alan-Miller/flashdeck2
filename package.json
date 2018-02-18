@@ -3,17 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
+    "dotenv": "^5.0.0",
+    "express": "^4.16.2",
+    "massive": "^4.6.5",
     "node-sass-chokidar": "0.0.3",
     "npm": "^5.6.0",
     "npm-run-all": "^4.1.2",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-promise-middleware": "^5.0.0"
   },
   "devDependencies": {
     "react-scripts": "1.1.1"
   },
   "scripts": {
-    "start": "npm-run-all -p watch-css start-js",
+    "start": "BROWSER=none npm-run-all -p watch-css start-js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -21,6 +30,6 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start"
   },
-  "proxy": "http://localhost:3009",
+  "proxy": "http://localhost:5000",
   "main": "server/index.js"
 }
