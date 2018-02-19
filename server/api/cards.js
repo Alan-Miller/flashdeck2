@@ -5,13 +5,12 @@ require('../massive').then(db => cards.set('db', db))
 const userID = 1
 
 
-
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*
   /api/cards endpoints
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 cards.get('', (req, res) => {
-  cards.get('db').get_cards_by_user_id([userID]).then(cards => {
+  cards.get('db').get_cards_and_decks([userID]).then(cards => {
     res.status(200).send(cards)
   })
 })
@@ -21,8 +20,11 @@ cards.post('', (req, res) => {
     return cards.get('db').make_card([userID, card.front, card.back])
       .then(cards => cards)
   })
-  Promise.all(promises).then(cards => {
-    res.status(200).send(cards[0])
+  Promise.all(promises).then(resp => {
+    cards.get('db').get_cards_and_decks([userID]).then(cards => {
+      console.log("CARDS", cards)
+      res.status(200).send(cards)
+    })
   }).catch(err => console.log(err))
 })
 

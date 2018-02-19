@@ -1,10 +1,16 @@
-INSERT INTO cards (user_id, front, back)
-  VALUES ($1, $2, $3);
+INSERT INTO cards_in_decks (card_id, deck_id) -- VALUES ($2, $3);
+SELECT $2, $3
+WHERE NOT EXISTS (
+    SELECT * FROM cards_in_decks
+    WHERE card_id = $2
+      AND deck_id = $3);
+
 
 -- SELECT *
--- FROM cards
+-- FROM decks
+  -- FULL OUTER JOIN cards_in_decks ON decks.id = cards_in_decks.deck_id
 -- WHERE user_id = $1
--- ORDER BY front;
+-- ORDER BY deck_name;
 
 -- SELECT
 --   cid.id cid_id,
@@ -14,4 +20,4 @@ INSERT INTO cards (user_id, front, back)
 --   FULL JOIN cards ON cards.id = cid.card_id
 --   FULL JOIN decks ON decks.id = cid.deck_id
 -- WHERE cards.user_id = $1 OR decks.user_id = $1
--- ORDER BY deck_name;
+-- ORDER BY deck_name, front;

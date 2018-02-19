@@ -1,12 +1,3 @@
-DELETE FROM cards
-WHERE user_id = $1
-  AND id = $2;
-
--- SELECT *
--- FROM cards
--- WHERE user_id = $1
--- ORDER BY front;
-
 SELECT
   cid.id cid_id,
   cards.user_id user_id, cards.id card_id, front, back, archived,
@@ -16,3 +7,10 @@ FROM cards_in_decks cid
   FULL JOIN decks ON decks.id = cid.deck_id
 WHERE cards.user_id = $1 OR decks.user_id = $1
 ORDER BY deck_name, front;
+
+
+
+-- SELECT *
+-- FROM cards
+-- WHERE user_id = $1
+-- ORDER BY front;
