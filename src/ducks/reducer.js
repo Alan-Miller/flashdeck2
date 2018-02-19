@@ -4,6 +4,8 @@ const initialState = {
   user: {},
   // colorTheme: '',
   cardsAndDecks: [],
+  // selectedDeck: {},
+  selectedCardIDs: []
 }
 
 const GET_CARDS_AND_DECKS = 'GET_CARDS_AND_DECKS'
@@ -11,7 +13,16 @@ const SET_NEW_CARDS = 'SET_NEW_CARDS'
 const SET_NEW_DECKS = 'SET_NEW_DECKS'
 const DELETE_CARDS = 'DELETE_CARDS'
 const DELETE_DECK = 'DELETE_DECK'
-const PUT_CARDS_IN_DECK = 'PUT_CARDS_IN_DECK'
+const ADD_CARDS_TO_DECK = 'ADD_CARDS_TO_DECK'
+const REMOVE_CARDS_FROM_DECK = 'REMOVE_CARDS_FROM_DECK'
+const SET_SELECTED_CARD_IDS = 'SET_SELECTED_CARD_IDS'
+
+export function setSelectedCardIDs(cardIDs) {
+  return {
+    type: SET_SELECTED_CARD_IDS,
+    payload: cardIDs
+  }
+}
 
 export function getCardsAndDecks() {
   return {
@@ -22,11 +33,19 @@ export function getCardsAndDecks() {
   }
 }
 
-export function putCardsInDeck(cardIDs, deckID) {
-  console.log("IDs", cardIDs, deckID)
+export function addCardsToDeck(cardIDs, deckID) {
   return {
-    type: PUT_CARDS_IN_DECK,
-    payload: axios.put(`/api/decks/${deckID}`, { cardIDs }).then(decks => {
+    type: ADD_CARDS_TO_DECK,
+    payload: axios.post(`/api/decks/${deckID}`, { cardIDs }).then(decks => {
+      return decks.data
+    })
+  }
+}
+
+export function removeCardsFromDeck(cardIDs, deckID) {
+  return {
+    type: REMOVE_CARDS_FROM_DECK,
+    payload: axios.delete(`/api/decks/${deckID}`, { data: { cardIDs } }).then(decks => {
       return decks.data
     })
   }
@@ -63,12 +82,16 @@ export function deleteDeck(deckID) {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_CARDS_AND_DECKS + '_FULFILLED':
-    case PUT_CARDS_IN_DECK + '_FULFILLED':
+    case ADD_CARDS_TO_DECK + '_FULFILLED':
+    case REMOVE_CARDS_FROM_DECK + '_FULFILLED':
     case SET_NEW_CARDS + '_FULFILLED':
     case SET_NEW_DECKS + '_FULFILLED':
     case DELETE_CARDS + '_FULFILLED':
     case DELETE_DECK + '_FULFILLED':
+      console.log("action.type", action.type)
       return Object.assign({}, state, { cardsAndDecks: action.payload })
+    case SET_SELECTED_CARD_IDS:
+      return Object.assign({}, state, { selectedCardIDs: action.payload })
     default:
       return state
   }

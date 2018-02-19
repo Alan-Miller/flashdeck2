@@ -22,7 +22,6 @@ cards.post('', (req, res) => {
   })
   Promise.all(promises).then(resp => {
     cards.get('db').get_cards_and_decks([userID]).then(cards => {
-      console.log("CARDS", cards)
       res.status(200).send(cards)
     })
   }).catch(err => console.log(err))
