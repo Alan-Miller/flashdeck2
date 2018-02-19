@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import {
   getCardsAndDecks,
-  // getCardsInDecks,
   setNewCards,
   setNewDeck,
   putCardsInDeck,
@@ -32,7 +31,6 @@ class Manage extends React.Component {
 
   componentWillMount() {
     this.props.getCardsAndDecks()
-    // this.props.getCardsInDecks()
   }
 
   handleInput(e) {
@@ -165,7 +163,6 @@ class Manage extends React.Component {
 
 const actionCreators = {
   getCardsAndDecks,
-  // getCardsInDecks,
   setNewCards,
   setNewDeck,
   putCardsInDeck,

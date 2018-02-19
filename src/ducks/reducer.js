@@ -2,10 +2,8 @@ import axios from 'axios'
 
 const initialState = {
   user: {},
-  colorTheme: '',
+  // colorTheme: '',
   cardsAndDecks: [],
-  cards: [{ id: 0, front: 'front', back: 'back' }],
-  decks: [{ id: 0, deck_name: 'Decky' }]
 }
 
 const GET_CARDS_AND_DECKS = 'GET_CARDS_AND_DECKS'
@@ -65,23 +63,13 @@ export function deleteDeck(deckID) {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_CARDS_AND_DECKS + '_FULFILLED':
-      return Object.assign({}, state, { cardsAndDecks: action.payload })
-    case SET_NEW_CARDS + '_FULFILLED':
-      return Object.assign({}, state, { cardsAndDecks: action.payload })
-    case SET_NEW_DECKS + '_FULFILLED':
-      return Object.assign({}, state, { cardsAndDecks: action.payload })
-    case DELETE_CARDS + '_FULFILLED':
-      return Object.assign({}, state, { cardsAndDecks: action.payload })
-    case DELETE_DECK + '_FULFILLED':
-      return Object.assign({}, state, { cardsAndDecks: action.payload })
     case PUT_CARDS_IN_DECK + '_FULFILLED':
+    case SET_NEW_CARDS + '_FULFILLED':
+    case SET_NEW_DECKS + '_FULFILLED':
+    case DELETE_CARDS + '_FULFILLED':
+    case DELETE_DECK + '_FULFILLED':
       return Object.assign({}, state, { cardsAndDecks: action.payload })
     default:
       return state
   }
-  // return (
-  //   action.type === GET_CARDS_AND_DECKS ? Object.assign({}, state, { cards: action.payload })
-  //     : action.type === SET_NEW_CARDS ? Object.assign({}, state, { cards: action.payload })
-  //       : state
-  // )
 }
