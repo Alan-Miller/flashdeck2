@@ -4,10 +4,11 @@ const initialState = {
   user: {},
   // colorTheme: '',
   cardsAndDecks: [],
-  // selectedDeck: {},
+  selectedDeckID: 0,
   selectedCardIDs: []
 }
 
+const GET_USER = 'GET_USER'
 const GET_CARDS_AND_DECKS = 'GET_CARDS_AND_DECKS'
 const SET_NEW_CARDS = 'SET_NEW_CARDS'
 const SET_NEW_DECKS = 'SET_NEW_DECKS'
@@ -16,11 +17,28 @@ const DELETE_DECK = 'DELETE_DECK'
 const ADD_CARDS_TO_DECK = 'ADD_CARDS_TO_DECK'
 const REMOVE_CARDS_FROM_DECK = 'REMOVE_CARDS_FROM_DECK'
 const SET_SELECTED_CARD_IDS = 'SET_SELECTED_CARD_IDS'
+const SET_SELECTED_DECK_ID = 'SET_SELECTED_DECK_ID'
+
+export function getUser() {
+  return {
+    type: GET_USER,
+    payload: axios.get('/api/user').then(user => {
+      return user.data
+    })
+  }
+}
 
 export function setSelectedCardIDs(cardIDs) {
   return {
     type: SET_SELECTED_CARD_IDS,
     payload: cardIDs
+  }
+}
+
+export function setSelectedDeckID(deckID) {
+  return {
+    type: SET_SELECTED_DECK_ID,
+    payload: deckID
   }
 }
 
@@ -81,6 +99,8 @@ export function deleteDeck(deckID) {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case GET_USER + '_FULFILLED':
+      return Object.assign({}, state, { user: action.payload })
     case GET_CARDS_AND_DECKS + '_FULFILLED':
     case ADD_CARDS_TO_DECK + '_FULFILLED':
     case REMOVE_CARDS_FROM_DECK + '_FULFILLED':
@@ -88,10 +108,11 @@ export default function reducer(state = initialState, action) {
     case SET_NEW_DECKS + '_FULFILLED':
     case DELETE_CARDS + '_FULFILLED':
     case DELETE_DECK + '_FULFILLED':
-      console.log("action.type", action.type)
       return Object.assign({}, state, { cardsAndDecks: action.payload })
     case SET_SELECTED_CARD_IDS:
       return Object.assign({}, state, { selectedCardIDs: action.payload })
+    case SET_SELECTED_DECK_ID:
+      return Object.assign({}, state, { selectedDeckID: action.payload })
     default:
       return state
   }

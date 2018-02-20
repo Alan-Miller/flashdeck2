@@ -9,4 +9,8 @@ const userID = 1
   /api/user endpoints
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
+user.get('', (req, res) => {
+  user.get('db').get_user([userID]).then(user => res.status(200).send(user[0]))
+})
+
 module.exports = user

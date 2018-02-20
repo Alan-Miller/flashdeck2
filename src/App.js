@@ -6,6 +6,7 @@ import Quiz from './components/Quiz';
 import Manage from './components/Manage';
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">

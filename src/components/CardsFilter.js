@@ -33,10 +33,9 @@ export function CardsFilter(props) {
         : null
     )
   }
-
   return (
     <div className="CardsFilter">
-      {props.children}
+      {props.title || null}
       {
         _.uniqBy(props.cardsAndDecks, props.uniqByProp || (item => item))
           .filter(props.filterFn || (item => item))

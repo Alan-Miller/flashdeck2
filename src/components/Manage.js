@@ -1,10 +1,11 @@
 import React from 'react';
-import _ from 'lodash';
 import MakeCard from './MakeCard';
 import MakeDeck from './MakeDeck';
 import CardsFilter from './CardsFilter';
+import DecksFilter from './DecksFilter';
 import { connect } from 'react-redux';
 import {
+  getUser,
   getCardsAndDecks,
   addCardsToDeck,
   removeCardsFromDeck,
@@ -18,7 +19,7 @@ class Manage extends React.Component {
     super()
 
     this.state = {
-      selectedDeck: {}
+      selectedDeckID: 0
     }
 
     this.addCardsToDeck = this.addCardsToDeck.bind(this)
@@ -26,38 +27,22 @@ class Manage extends React.Component {
   }
 
   componentWillMount() {
+    this.props.getUser()
     this.props.getCardsAndDecks()
-  }
-
-  removeDeck(e, deckID) {
-    e.stopPropagation()
-    this.props.deleteDeck(deckID)
-  }
-
-  selectDeck(deck) {
-    this.setState({ selectedDeck: deck })
   }
 
   addCardsToDeck() {
     if (!this.props.selectedCardIDs.length) return
-    else this.props.addCardsToDeck(this.props.selectedCardIDs, this.state.selectedDeck.deck_id)
+    else this.props.addCardsToDeck(this.props.selectedCardIDs, this.props.selectedDeckID)
   }
 
   removeCards() {
-    this.props.removeCardsFromDeck(this.props.selectedCardIDs, this.state.selectedDeck.deck_id)
+    this.props.removeCardsFromDeck(this.props.selectedCardIDs, this.props.selectedDeckID)
   }
 
   render() {
 
-    const selectedStyles = cardID => {
-      return (
-        this.props.selectedCardIDs.some(id => id === cardID) ?
-          { color: 'red' }
-          : null
-      )
-    }
-
-    const selectedDeckName = this.state.selectedDeck.deck_name && this.state.selectedDeck.deck_name
+    const selectedDeckName = !!this.props.selectedDeckID && this.props.cardsAndDecks.find(item => item.deck_id === this.props.selectedDeckID).deck_name
 
     return (
       <div className="Manage">
@@ -66,31 +51,38 @@ class Manage extends React.Component {
 
         <MakeCard />
         <CardsFilter
+          title={<h3>Cards</h3>}
           uniqByProp={'card_id'}
           filterFn={card => card.card_id}
-        ><h3>Cards</h3>
+        >
         </CardsFilter>
 
         <MakeDeck />
-        <div>
-          <h3>Decks</h3>
-          {
-            _.uniqBy(this.props.cardsAndDecks, 'deck_id')
-              .filter(deck => !!deck.deck_id)
-              .map(deck => (
-                <div key={deck.deck_id} onClick={() => this.selectDeck(deck)}>
-                  {deck.deck_name}
-                  <span onClick={e => this.removeDeck(e, deck.deck_id)}> x </span>
-                </div>
-              ))
-          }
-        </div>
 
-        <CardsFilter
-          uniqByProp={'cid_id'}
-          filterFn={card => card.deck_id === this.state.selectedDeck.deck_id && card.card_id}
-        ><h3 onClick={this.addCardsToDeck}>{selectedDeckName}</h3>
-        </CardsFilter>
+        {
+          <DecksFilter
+            title={<h3>Decks</h3>}
+            uniqByProp={'deck_id'}
+            filterFn={deck => !!deck.deck_id}
+          >
+          </DecksFilter>
+        }
+
+        {
+          selectedDeckName ?
+            <CardsFilter
+              title={<h3 onClick={this.addCardsToDeck}>{selectedDeckName}</h3>}
+              uniqByProp={'cid_id'}
+              filterFn={card => card.deck_id === this.props.selectedDeckID && card.card_id}
+            />
+            :
+            <CardsFilter
+              title={<h3>Cards without decks</h3>}
+              uniqByProp={'card_id'}
+              filterFn={card => !card.deck_id && card.card_id}
+            />
+
+        }
 
 
         <button onClick={() => this.props.deleteCards(this.props.selectedCardIDs)}> Delete selected cards</button>
@@ -102,6 +94,7 @@ class Manage extends React.Component {
 }
 
 const actionCreators = {
+  getUser,
   getCardsAndDecks,
   addCardsToDeck,
   removeCardsFromDeck,

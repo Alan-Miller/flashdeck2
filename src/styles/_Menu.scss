@@ -1,0 +1,31 @@
+.Menu {
+  
+  div.Menu__row {
+    background-color: red;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+
+    div.deckSwap {
+      display: flex;
+      &:active details { display: block }
+      &:hover h5 { display: flex; }
+      
+      h5 { display: none; }
+      & > * { margin-left: 10px; }
+      
+      details {
+        z-index: 10;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: green;
+        height: 140px;
+        width: 140px;
+        border-radius: 20px;
+        display: none;
+      }
+    }
+  }
+  
+}
