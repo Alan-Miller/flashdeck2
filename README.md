@@ -1,10 +1,10 @@
-# Quiz
+# FlashDeck2
+
+## Quiz
 This section is for simply testing yourself with flash cards.
 
-# Manage
+## Manage
 This section is for managing your flash cards.
-
-# FlashDeck2
 
 ## Color Scheme
 ![#820263](https://placehold.it/15/820263/000000?text=+) 
