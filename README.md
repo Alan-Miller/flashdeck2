@@ -18,4 +18,4 @@ This section is for managing your flash cards.
 ![#0A0908](https://placehold.it/15/0A0908/000000?text=+) 
 <font color="#0A0908">#0A0908</font>
 
-![colors](./src/imgs/coolors1.png "color scheme")
+![colors](./src/imgs/coolors1b.png "color scheme")
