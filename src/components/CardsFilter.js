@@ -39,14 +39,14 @@ export function CardsFilter(props) {
       {
         _.uniqBy(props.cardsAndDecks, props.uniqBy || (item => item))
           .filter(props.filter || (item => item))
-          .map(card => {console.log('card', card); return (
+          .map(card => (
             <div
               key={card.card_id}
               style={selectedStyles(card.card_id)}
               onClick={() => selectCard(card.card_id)}
             >{card.front} {card.back}
             </div>
-          )})
+          ))
       }
     </div>
   )

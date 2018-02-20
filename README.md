@@ -6,12 +6,11 @@ This section is for simply testing yourself with flash cards.
 ## Manage
 This section is for managing your flash cards.
 
+---
 ## Color Themes
 
 Lala
- 
 ![colors](./src/imgs/coolors1c.png "color scheme")
-
 ![#820263](https://placehold.it/15/820263/000000?text=+) 
 <font color="#820263">#820263</font>
 ![#D90368](https://placehold.it/15/D90368/000000?text=+) 
