@@ -9,6 +9,7 @@ import {
   getCardsAndDecks,
   addCardsToDeck,
   removeCardsFromDeck,
+  setSelectedCardIDs,
   deleteDeck,
   deleteCards
 } from '../ducks/reducer';
@@ -29,6 +30,10 @@ class Manage extends React.Component {
   componentWillMount() {
     this.props.getUser()
     this.props.getCardsAndDecks()
+  }
+
+  componentWillUnmount() {
+    this.props.setSelectedCardIDs([])
   }
 
   addCardsToDeck() {
@@ -52,34 +57,32 @@ class Manage extends React.Component {
         <MakeCard />
         <CardsFilter
           title={<h3>Cards</h3>}
-          uniqByProp={'card_id'}
-          filterFn={card => card.card_id}
-        >
-        </CardsFilter>
+          uniqBy={'card_id'}
+          filter={card => card.card_id}
+        />
 
         <MakeDeck />
 
         {
           <DecksFilter
             title={<h3>Decks</h3>}
-            uniqByProp={'deck_id'}
-            filterFn={deck => !!deck.deck_id}
-          >
-          </DecksFilter>
+            uniqBy={'deck_id'}
+            filter={deck => deck.deck_id}
+          />
         }
 
         {
           selectedDeckName ?
             <CardsFilter
               title={<h3 onClick={this.addCardsToDeck}>{selectedDeckName}</h3>}
-              uniqByProp={'cid_id'}
-              filterFn={card => card.deck_id === this.props.selectedDeckID && card.card_id}
+              uniqBy={'cid_id'}
+              filter={card => card.deck_id === this.props.selectedDeckID && card.card_id}
             />
             :
             <CardsFilter
-              title={<h3>Cards without decks</h3>}
-              uniqByProp={'card_id'}
-              filterFn={card => !card.deck_id && card.card_id}
+              title={<h3>Loose cards</h3>}
+              uniqBy={'card_id'}
+              filter={card => !card.deck_id && card.card_id}
             />
 
         }
@@ -98,6 +101,7 @@ const actionCreators = {
   getCardsAndDecks,
   addCardsToDeck,
   removeCardsFromDeck,
+  setSelectedCardIDs,
   deleteDeck,
   deleteCards
 };

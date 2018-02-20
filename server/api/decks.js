@@ -46,4 +46,11 @@ decks.delete('/:deckID', (req, res) => {
   })
 })
 
+decks.patch('/:deckID/mode/:mode', (req, res) => {
+  const edit_mode = `edit_${req.params.mode}_mode`
+  decks.get('db')[edit_mode]([userID, req.params.deckID]).then(user => {
+    res.status(200).send(user[0])
+  })
+})
+
 module.exports = decks

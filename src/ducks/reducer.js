@@ -18,6 +18,16 @@ const ADD_CARDS_TO_DECK = 'ADD_CARDS_TO_DECK'
 const REMOVE_CARDS_FROM_DECK = 'REMOVE_CARDS_FROM_DECK'
 const SET_SELECTED_CARD_IDS = 'SET_SELECTED_CARD_IDS'
 const SET_SELECTED_DECK_ID = 'SET_SELECTED_DECK_ID'
+const SWAP_DECK = 'SWAP_DECK'
+
+export function swapDeck(deckID, mode) {
+  return {
+    type: SWAP_DECK,
+    payload: axios.patch(`/api/decks/${deckID}/mode/${mode}`).then(user => {
+      return user.data
+    })
+  }
+}
 
 export function getUser() {
   return {
@@ -99,8 +109,11 @@ export function deleteDeck(deckID) {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+
     case GET_USER + '_FULFILLED':
+    case SWAP_DECK + '_FULFILLED':
       return Object.assign({}, state, { user: action.payload })
+
     case GET_CARDS_AND_DECKS + '_FULFILLED':
     case ADD_CARDS_TO_DECK + '_FULFILLED':
     case REMOVE_CARDS_FROM_DECK + '_FULFILLED':
@@ -109,10 +122,13 @@ export default function reducer(state = initialState, action) {
     case DELETE_CARDS + '_FULFILLED':
     case DELETE_DECK + '_FULFILLED':
       return Object.assign({}, state, { cardsAndDecks: action.payload })
+
     case SET_SELECTED_CARD_IDS:
       return Object.assign({}, state, { selectedCardIDs: action.payload })
+
     case SET_SELECTED_DECK_ID:
       return Object.assign({}, state, { selectedDeckID: action.payload })
+
     default:
       return state
   }

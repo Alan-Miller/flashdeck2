@@ -1,52 +1,75 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getUser } from '../ducks/reducer';
+import { 
+  getUser, 
+  swapDeck, 
+  getCardsAndDecks 
+} from '../ducks/reducer';
+import DecksFilter from './DecksFilter';
 
 class Menu extends React.Component {
 
   componentWillMount() {
     this.props.getUser()
+    this.props.getCardsAndDecks()
   }
 
   render() {
-    console.log("user", this.props.user)
+
+    const { user } = this.props
+    console.log('user', user)
+
     return (
       <div className="Menu">
 
-        <h2>Hello {this.props.user ? this.props.user.username : null}!</h2>
+        <h2>Hello{user ? ' ' + user.username : null}!</h2>
 
         <div className="Menu__row">
           <Link to="/quiz" >
             <h2>Quiz</h2>
           </Link>
           {
-            this.props.user ?
+            user ?
+
               <div className="deckSwap">
-                <h3>{this.props.user.qd_name}</h3>
+                <h3>{user.qd_id === 0 ? 'Loose cards' : user.qd_name}</h3>
                 <h5>swap?</h5>
-                <details></details>
+                <div className="deckDiv">
+                  <DecksFilter
+                    uniqBy={'deck_id'}
+                    filter={deck => deck.deck_id}
+                    deckFn={this.props.swapDeck}
+                    mode="quiz"
+                  />
+                </div>
               </div>
-              :
-              null
+
+              : null
           }
         </div>
 
-        <Link to="/manage" >
-          <div className="Menu__row">
+        <div className="Menu__row">
+          <Link to="/manage" >
             <h2>Manage</h2>
-          </div>
-        </Link>
+          </Link>
+        </div>
 
-        <a href={process.env.REACT_APP_AUTH} >
-          <div className="Menu__row">
+        <div className="Menu__row">
+          <a href={process.env.REACT_APP_AUTH} >
             <h2>Log in</h2>
-          </div>
-        </a>
+          </a>
+        </div>
 
       </div>
     )
   }
 }
 
-export default connect(state => state, { getUser })(Menu);
+const actionCreators = { 
+  getUser, 
+  swapDeck, 
+  getCardsAndDecks 
+}
+
+export default connect(state => state, actionCreators)(Menu);

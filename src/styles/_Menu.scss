@@ -5,25 +5,32 @@
     cursor: pointer;
     position: relative;
     display: flex;
+    a { display: flex } // <Link> 
 
     div.deckSwap {
       display: flex;
-      &:active details { display: block }
-      &:hover h5 { display: flex; }
+      position: relative;
+      background: blue;
+      // &:active details { display: block } // click and hold to show swap options
       
-      h5 { display: none; }
-      & > * { margin-left: 10px; }
+      * { margin-left: 10px; }
+      h5 { display: none; } // "swap?" question normally hidden
+      &:hover h5 { display: flex; } // "swap?" question appears on hover (won't work with mobile)
       
-      details {
-        z-index: 10;
-        position: absolute;
+      /*————————————————————————————*
+        quick-swap menu shows decks
+      /*————————————————————————————*/
+      div.deckDiv { 
+        // display: none;
+        // position: absolute;
+        position: fixed;
         top: 0;
-        left: 0;
+        right: 0;
+        z-index: 1;
         background: green;
         height: 140px;
         width: 140px;
         border-radius: 20px;
-        display: none;
       }
     }
   }
