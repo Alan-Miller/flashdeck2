@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import {
   getUser,
   getCardsAndDecks,
-  setSelectedCardIDs
+  selectCardIDs
 } from '../ducks/reducer';
-import CardsFilter from './CardsFilter';
+import CardsList from './CardsList';
 
 class Quiz extends React.Component {
 
@@ -15,7 +15,7 @@ class Quiz extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.setSelectedCardIDs([])
+    this.props.selectCardIDs([])
   }
 
   render() {
@@ -26,8 +26,9 @@ class Quiz extends React.Component {
         {this.props.user ? this.props.user.username : null}
         {this.props.user ? this.props.user.qd_id : null}
         {this.props.user ? this.props.user.qd_name : null}
-        <CardsFilter
+        <CardsList
           filter={card => card.deck_id === this.props.user.qd_id}
+          onClick={() => {}}
         />
       </div>
     )
@@ -37,7 +38,7 @@ class Quiz extends React.Component {
 const actionCreators = {
   getUser,
   getCardsAndDecks,
-  setSelectedCardIDs
+  selectCardIDs
 }
 
 export default connect(state => state, actionCreators)(Quiz);

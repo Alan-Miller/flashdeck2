@@ -1,12 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import DecksList from './DecksList';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { 
   getUser, 
   swapDeck, 
   getCardsAndDecks 
 } from '../ducks/reducer';
-import DecksFilter from './DecksFilter';
 
 class Menu extends React.Component {
 
@@ -16,9 +16,7 @@ class Menu extends React.Component {
   }
 
   render() {
-
     const { user } = this.props
-    console.log('user', user)
 
     return (
       <div className="Menu">
@@ -36,7 +34,7 @@ class Menu extends React.Component {
                 <h3>{user.qd_id === 0 ? 'Loose cards' : user.qd_name}</h3>
                 <h5>swap?</h5>
                 <div className="deckDiv">
-                  <DecksFilter
+                  <DecksList
                     uniqBy={'deck_id'}
                     filter={deck => deck.deck_id}
                     deckFn={this.props.swapDeck}

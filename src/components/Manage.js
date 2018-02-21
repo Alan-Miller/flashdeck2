@@ -1,15 +1,15 @@
 import React from 'react';
 import MakeCard from './MakeCard';
 import MakeDeck from './MakeDeck';
-import CardsFilter from './CardsFilter';
-import DecksFilter from './DecksFilter';
+import CardsList from './CardsList';
+import DecksList from './DecksList';
 import { connect } from 'react-redux';
 import {
   getUser,
   getCardsAndDecks,
   addCardsToDeck,
   removeCardsFromDeck,
-  setSelectedCardIDs,
+  selectCardIDs,
   deleteDeck,
   deleteCards
 } from '../ducks/reducer';
@@ -18,11 +18,6 @@ class Manage extends React.Component {
 
   constructor() {
     super()
-
-    this.state = {
-      selectedDeckID: 0
-    }
-
     this.addCardsToDeck = this.addCardsToDeck.bind(this)
     this.removeCards = this.removeCards.bind(this)
   }
@@ -33,7 +28,7 @@ class Manage extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.setSelectedCardIDs([])
+    this.props.selectCardIDs([])
   }
 
   addCardsToDeck() {
@@ -54,39 +49,47 @@ class Manage extends React.Component {
 
         <h2>Manage</h2>
 
+        <br />
+
         <MakeCard />
-        <CardsFilter
-          title={<h3>Cards</h3>}
-          uniqBy={'card_id'}
-          filter={card => card.card_id}
-        />
+
+        { // Show all cards
+          <CardsList
+            title={<h3>Cards</h3>}
+            uniqBy={'card_id'}
+            filter={card => card.card_id}
+          />
+        }
+        <br />
 
         <MakeDeck />
 
-        {
-          <DecksFilter
+        { // Show all deck names
+          <DecksList
             title={<h3>Decks</h3>}
             uniqBy={'deck_id'}
             filter={deck => deck.deck_id}
           />
         }
 
-        {
+        <br />
+
+        { // If deck is selected, show those cards 
           selectedDeckName ?
-            <CardsFilter
+            <CardsList
               title={<h3 onClick={this.addCardsToDeck}>{selectedDeckName}</h3>}
               uniqBy={'cid_id'}
               filter={card => card.deck_id === this.props.selectedDeckID && card.card_id}
             />
-            :
-            <CardsFilter
+            : // otherwise show loose cards
+            <CardsList
               title={<h3>Loose cards</h3>}
               uniqBy={'card_id'}
               filter={card => !card.deck_id && card.card_id}
             />
 
         }
-
+        <br /><br /><br />
 
         <button onClick={() => this.props.deleteCards(this.props.selectedCardIDs)}> Delete selected cards</button>
         <button onClick={this.removeCards}> Remove cards from selected deck </button>
@@ -101,7 +104,7 @@ const actionCreators = {
   getCardsAndDecks,
   addCardsToDeck,
   removeCardsFromDeck,
-  setSelectedCardIDs,
+  selectCardIDs,
   deleteDeck,
   deleteCards
 };

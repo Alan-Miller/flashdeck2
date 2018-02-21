@@ -1,22 +1,29 @@
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*
+  PROPS:
+  selectDeckID:                         Redux action
+  cardsAndDecks:                        values on Redux state
+  title, uniqBy, filter, deckFn, mode:  optional props from parent
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import {
-  setSelectedDeckID,
+  selectDeckID,
   deleteCards
 } from '../ducks/reducer';
 
-export function DecksFilter(props) {
+export function DecksList(props) {
 
-  function removeDeck(e, deckID) {
-    e.stopPropagation()
-    props.deleteDeck(deckID)
-  }
+  // function removeDeck(e, deckID) {
+  //   e.stopPropagation()
+  //   props.deleteDeck(deckID)
+  // }
 
-  const deckFn = props.deckFn || props.setSelectedDeckID;
+  const deckFn = props.deckFn || props.selectDeckID;
 
   return (
-    <div className="DecksFilter">
+    <div className="DecksList">
       {props.title || null}
       {
         _.uniqBy(props.cardsAndDecks, props.uniqBy || (item => item))
@@ -34,10 +41,10 @@ export function DecksFilter(props) {
 }
 
 const actionCreators = {
-  setSelectedDeckID,
+  selectDeckID,
   deleteCards
 };
 
-export default connect(state => state, actionCreators)(DecksFilter);
+export default connect(state => state, actionCreators)(DecksList);
 
 // {/* <span onClick={e => removeDeck(e, deck.deck_id)}> x </span> */}
