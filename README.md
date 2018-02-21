@@ -8,10 +8,11 @@ This section is for managing your flash cards.
 
 ---
 ## Color Themes
+<!-- The <font> tag and color attribute make the VS Code Preview pretty, but they don't really do anything on GitHub. -->
 
 Lala
 
-![colors](./src/imgs/coolors1c.png "color scheme")
+![colors](./src/imgs/lala-2.png "color scheme")
 
 ![#820263](https://placehold.it/15/820263/000000?text=+) 
 <font color="#820263">#820263</font>

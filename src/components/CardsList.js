@@ -9,10 +9,10 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { selectCardIDs } from '../ducks/reducer';
+import GameCard from './GameCard';
 
-function CardsList({ selectCardIDs, cardsAndDecks, selectedCardIDs, title, uniqBy, filter, onClick}) {
+function CardsList({ selectCardIDs, cardsAndDecks, selectedCardIDs, title, uniqBy, filter, onClick }) {
 
-  const selectedStyles = (cardID) => selectedCardIDs.some(id => id === cardID) ? { color: 'red' } : null
   return (
     <div className="CardsList">
       {title || null}
@@ -21,13 +21,10 @@ function CardsList({ selectCardIDs, cardsAndDecks, selectedCardIDs, title, uniqB
         _.uniqBy(cardsAndDecks, uniqBy || (item => item))
           .filter(filter || (item => item))
           .map(card => (
-            <div
+            <GameCard
               key={card.card_id}
-              style={selectedStyles(card.card_id)}
-              onClick={() => selectCardIDs(selectedCardIDs, card.card_id)}
-            >
-              {card.front} {card.back}
-            </div>
+              card={card}
+            />
           ))
       }
     </div>
