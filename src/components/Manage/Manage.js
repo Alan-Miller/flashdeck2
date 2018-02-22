@@ -1,8 +1,8 @@
 import React from 'react';
 import MakeCard from './MakeCard';
 import MakeDeck from './MakeDeck';
-import CardsList from './CardsList';
-import DecksList from './DecksList';
+import DataCards from '../DataCards/DataCards';
+import DecksList from '../DecksList/DecksList';
 import { connect } from 'react-redux';
 import {
   getUser,
@@ -12,7 +12,7 @@ import {
   selectCardIDs,
   deleteDeck,
   deleteCards
-} from '../ducks/reducer';
+} from '../../ducks/reducer';
 
 class Manage extends React.Component {
 
@@ -41,8 +41,11 @@ class Manage extends React.Component {
   }
 
   render() {
-
-    const selectedDeckName = !!this.props.selectedDeckID && this.props.cardsAndDecks.find(item => item.deck_id === this.props.selectedDeckID).deck_name
+    const { selectedDeckID, selectedCardIDs, deleteCards, cardsAndDecks } = this.props
+    const selectedDeckName = (
+      selectedDeckID > 0 &&
+      cardsAndDecks.find(item => item.deck_id === selectedDeckID).deck_name
+    )
 
     return (
       <div className="Manage">
@@ -52,15 +55,6 @@ class Manage extends React.Component {
         <br />
 
         <MakeCard />
-
-        { // Show all cards
-          <CardsList
-            title={<h3>Cards</h3>}
-            uniqBy={'card_id'}
-            filter={card => card.card_id}
-          />
-        }
-        <br />
 
         <MakeDeck />
 
@@ -76,22 +70,29 @@ class Manage extends React.Component {
 
         { // If deck is selected, show those cards 
           selectedDeckName ?
-            <CardsList
+            <DataCards
               title={<h3 onClick={this.addCardsToDeck}>{selectedDeckName}</h3>}
               uniqBy={'cid_id'}
-              filter={card => card.deck_id === this.props.selectedDeckID && card.card_id}
+              filter={card => card.deck_id === selectedDeckID && card.card_id}
             />
-            : // otherwise show loose cards
-            <CardsList
-              title={<h3>Loose cards</h3>}
-              uniqBy={'card_id'}
-              filter={card => !card.deck_id && card.card_id}
-            />
+            : selectedDeckID === -1 ? // if ID is -1 show loose cards
+              <DataCards
+                title={<h3>Loose cards</h3>}
+                uniqBy={'card_id'}
+                filter={card => !card.deck_id && card.card_id}
+              />
+              : selectedDeckID === 0 ? // if ID is 0 show all cards
+                <DataCards
+                  title={<h3>Cards</h3>}
+                  uniqBy={'card_id'}
+                  filter={card => card.card_id}
+                />
+                : null
 
         }
         <br /><br /><br />
 
-        <button onClick={() => this.props.deleteCards(this.props.selectedCardIDs)}> Delete selected cards</button>
+        <button onClick={() => deleteCards(selectedCardIDs)}> Delete selected cards</button>
         <button onClick={this.removeCards}> Remove cards from selected deck </button>
 
       </div>

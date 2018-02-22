@@ -1,0 +1,19 @@
+.DataCards {
+  background: blue;
+  
+  .card {
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid rgb(40, 40, 40);
+  }
+  .front, .back {
+    width: 50%;
+    padding: 4px;
+  }
+  .front {
+    background: crimson;
+  }
+  .back {
+    background: orange;
+  }
+}

@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import {
   selectDeckID,
   deleteCards
-} from '../ducks/reducer';
+} from '../../ducks/reducer';
 
 export function DecksList(props) {
 
@@ -20,21 +20,24 @@ export function DecksList(props) {
   //   props.deleteDeck(deckID)
   // }
 
-  const deckFn = props.deckFn || props.selectDeckID;
+  const uniqBy = props.uniqBy || (item => item)
+  const filter = props.filter || (item => item)
+  const deckFn = props.deckFn || props.selectDeckID
 
   return (
     <div className="DecksList">
       {props.title || null}
       {
-        _.uniqBy(props.cardsAndDecks, props.uniqBy || (item => item))
-          .filter(props.filter || (item => item))
+        _.uniqBy(props.cardsAndDecks, uniqBy)
+          .filter(filter)
           .map(deck => (
             <div key={deck.deck_id} onClick={() => deckFn(deck.deck_id, props.mode)}>
               {deck.deck_name}
             </div>
           ))
       }
-      <div key={0} onClick={() => deckFn(0)}>Loose cards</div>
+      <div key={-1} onClick={() => deckFn(-1, props.mode)}>Loose cards</div>
+      <div key={0} onClick={() => deckFn(0, props.mode)}>All cards</div>
     </div>
   )
 

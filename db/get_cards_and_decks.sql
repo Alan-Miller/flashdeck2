@@ -1,3 +1,7 @@
+-- VARIABLES
+-- $1 userID from session
+
+
 SELECT
   cid.id cid_id,
   cards.user_id user_id, cards.id card_id, front, back, archived,

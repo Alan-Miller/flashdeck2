@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   makeNewCards
-} from '../ducks/reducer';
+} from '../../ducks/reducer';
 
 class MakeCard extends React.Component {
   constructor() {

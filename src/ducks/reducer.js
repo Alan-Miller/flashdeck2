@@ -44,6 +44,9 @@ export default function (state = initialState, action) {
   action creators
 /*———————————————————————————————————————————————————————————————*/
 export function swapDeck(deckID, mode) {
+
+
+  
   return {
     type: types.SWAP_DECK,
     payload: axios.patch(`/api/decks/${deckID}/mode/${mode}`).then(user => {
@@ -95,7 +98,8 @@ export function addCardsToDeck(cardIDs, deckID) {
 }
 
 export function removeCardsFromDeck(cardIDs, deckID) {
-  return {
+  if (!cardIDs.length || deckID <= 0) return { type: null }
+  else return {
     type: types.REMOVE_CARDS_FROM_DECK,
     payload: axios.delete(`/api/decks/${deckID}`, { data: { cardIDs } }).then(decks => {
       return decks.data

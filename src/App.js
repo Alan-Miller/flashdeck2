@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import './styles/main.css';
-import Menu from './components/Menu';
-import Quiz from './components/Quiz';
-import Manage from './components/Manage';
+import './scss/main.css';
+import Menu from './components/Menu/Menu';
+import Quiz from './components/Quiz/Quiz';
+import Manage from './components/Manage/Manage';
 
 class App extends Component {
 

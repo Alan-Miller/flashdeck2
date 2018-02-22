@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   makeNewDeck
-} from '../ducks/reducer';
+} from '../../ducks/reducer';
 
 class MakeDeck extends React.Component {
   constructor() {

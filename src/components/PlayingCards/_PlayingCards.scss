@@ -1,23 +1,21 @@
-.GameCard {
+.PlayingCards {
   background: blue;
+  // height: $gameCardH;
   display: flex;
-
-  .cardContainer,
-  .card,
-  .front,
-  .back {
-    height: 350px;
-    width: 250px;
-  }
+  position: absolute;
+  left: calc(50vw - 125px);
+  bottom: calc(50vh - 175px);
+  
   .cardContainer {
+    height: $gameCardH;
+    width: $gameCardW;
     background: greenyellow;
     perspective: 1000px;
     position: relative;
-  } 
-  // .cardContainer:hover .card {
-  //   transform: rotateY(180deg);
-  // }
+  }
   .card {
+    height: $gameCardH;
+    width: $gameCardW;
     position: absolute;
     transform-style: preserve-3d;
     transition: .5s;
@@ -26,8 +24,9 @@
       transform: rotateY(180deg);
     }
   }
-  .front,
-  .back {
+  .front, .back {
+    height: $gameCardH;
+    width: $gameCardW;
     position: absolute;
     top: 0;
     left: 0;
@@ -41,6 +40,6 @@
   }
   .back {
     transform: rotateY(180deg);
-    background: chocolate;
+    background: orange;
   }
 }

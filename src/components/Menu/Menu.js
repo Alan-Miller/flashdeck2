@@ -1,12 +1,12 @@
 import React from 'react';
-import DecksList from './DecksList';
+import DecksList from '../DecksList/DecksList';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { 
   getUser, 
   swapDeck, 
   getCardsAndDecks 
-} from '../ducks/reducer';
+} from '../../ducks/reducer';
 
 class Menu extends React.Component {
 
@@ -31,7 +31,7 @@ class Menu extends React.Component {
             user ?
 
               <div className="deckSwap">
-                <h3>{user.qd_id === 0 ? 'Loose cards' : user.qd_name}</h3>
+                <h3>{user.qd_name}</h3>
                 <h5>swap?</h5>
                 <div className="deckDiv">
                   <DecksList
