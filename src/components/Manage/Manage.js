@@ -18,7 +18,7 @@ class Manage extends React.Component {
 
   constructor() {
     super()
-    this.addCardsToDeck = this.addCardsToDeck.bind(this)
+    this.addCards = this.addCards.bind(this)
     this.removeCards = this.removeCards.bind(this)
   }
 
@@ -31,20 +31,20 @@ class Manage extends React.Component {
     this.props.selectCardIDs([])
   }
 
-  addCardsToDeck() {
-    if (!this.props.selectedCardIDs.length) return
+  addCards() {
+    if (!this.props.selectedCardIDs.length || !this.props.selectedDeckID) return
     else this.props.addCardsToDeck(this.props.selectedCardIDs, this.props.selectedDeckID)
   }
 
   removeCards() {
-    this.props.removeCardsFromDeck(this.props.selectedCardIDs, this.props.selectedDeckID)
+    if (!this.props.selectedCardIDs.length || !this.props.selectedDeckID) return
+    else this.props.removeCardsFromDeck(this.props.selectedCardIDs, this.props.selectedDeckID)
   }
 
   render() {
-    const { selectedDeckID, selectedCardIDs, deleteCards, cardsAndDecks } = this.props
+    const { selectedDeckID, selectedCardIDs, deleteCards, deleteDeck, cardsAndDecks } = this.props
     const selectedDeckName = (
-      selectedDeckID > 0 &&
-      cardsAndDecks.find(item => item.deck_id === selectedDeckID).deck_name
+      selectedDeckID > 0 && cardsAndDecks.find(item => item.deck_id === selectedDeckID).deck_name
     )
 
     return (
@@ -60,6 +60,7 @@ class Manage extends React.Component {
 
         { // Show all deck names
           <DecksList
+            cardsAndDecks={cardsAndDecks}
             title={<h3>Decks</h3>}
             uniqBy={'deck_id'}
             filter={deck => deck.deck_id}
@@ -71,18 +72,21 @@ class Manage extends React.Component {
         { // If deck is selected, show those cards 
           selectedDeckName ?
             <DataCards
-              title={<h3 onClick={this.addCardsToDeck}>{selectedDeckName}</h3>}
+              cardsAndDecks={cardsAndDecks}
+              title={<h3>{selectedDeckName}</h3>}
               uniqBy={'cid_id'}
               filter={card => card.deck_id === selectedDeckID && card.card_id}
             />
             : selectedDeckID === -1 ? // if ID is -1 show loose cards
               <DataCards
+                cardsAndDecks={cardsAndDecks}
                 title={<h3>Loose cards</h3>}
                 uniqBy={'card_id'}
                 filter={card => !card.deck_id && card.card_id}
               />
               : selectedDeckID === 0 ? // if ID is 0 show all cards
                 <DataCards
+                  cardsAndDecks={cardsAndDecks}
                   title={<h3>Cards</h3>}
                   uniqBy={'card_id'}
                   filter={card => card.card_id}
@@ -92,8 +96,10 @@ class Manage extends React.Component {
         }
         <br /><br /><br />
 
-        <button onClick={() => deleteCards(selectedCardIDs)}> Delete selected cards</button>
-        <button onClick={this.removeCards}> Remove cards from selected deck </button>
+        <button onClick={() => deleteCards(selectedCardIDs)}> Delete selected cards</button><br />
+        <button onClick={this.addCards}> Add cards to selected deck </button><br />
+        <button onClick={this.removeCards}> Remove cards from selected deck </button><br />
+        <button onClick={e => deleteDeck(this.props.selectedDeckID)}> Delete selected deck</button><br />
 
       </div>
     )

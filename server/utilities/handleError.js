@@ -1,0 +1,1 @@
+module.exports = (details = '') => err => console.log(`${details} ${err}`)

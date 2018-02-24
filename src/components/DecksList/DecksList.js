@@ -1,53 +1,45 @@
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*
   PROPS:
-  selectDeckID:                         Redux action
-  cardsAndDecks:                        values on Redux state
-  title, uniqBy, filter, deckFn, mode:  optional props from parent
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  selectDeckID:                   Redux action
+  cardsAndDecks, mode:            props from parent
+  title, uniqBy, filter, deckFn:  optional props from parent
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import {
-  selectDeckID,
-  deleteCards
+  selectDeckID
 } from '../../ducks/reducer';
 
 export function DecksList(props) {
 
-  // function removeDeck(e, deckID) {
-  //   e.stopPropagation()
-  //   props.deleteDeck(deckID)
-  // }
-
+  const { cardsAndDecks, title, mode, selectDeckID } = props
   const uniqBy = props.uniqBy || (item => item)
   const filter = props.filter || (item => item)
-  const deckFn = props.deckFn || props.selectDeckID
+  const deckFn = props.deckFn || selectDeckID
 
   return (
     <div className="DecksList">
-      {props.title || null}
+      {title || null}
       {
-        _.uniqBy(props.cardsAndDecks, uniqBy)
+        _.uniqBy(cardsAndDecks, uniqBy)
           .filter(filter)
           .map(deck => (
-            <div key={deck.deck_id} onClick={() => deckFn(deck.deck_id, props.mode)}>
+            <div key={deck.deck_id} onClick={() => deckFn(deck.deck_id, mode)}>
               {deck.deck_name}
             </div>
           ))
       }
-      <div key={-1} onClick={() => deckFn(-1, props.mode)}>Loose cards</div>
-      <div key={0} onClick={() => deckFn(0, props.mode)}>All cards</div>
+      <div key={-1} onClick={() => deckFn(-1, mode)}>Loose cards</div>
+      <div key={0} onClick={() => deckFn(0, mode)}>All cards</div>
     </div>
   )
 
 }
 
 const actionCreators = {
-  selectDeckID,
-  deleteCards
+  selectDeckID
 };
 
-export default connect(state => state, actionCreators)(DecksList);
-
-// {/* <span onClick={e => removeDeck(e, deck.deck_id)}> x </span> */}
+export default connect(null, actionCreators)(DecksList);

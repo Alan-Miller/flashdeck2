@@ -14,4 +14,4 @@ INSERT INTO cards (user_id, front, back)
 --   FULL JOIN cards ON cards.id = cid.card_id
 --   FULL JOIN decks ON decks.id = cid.deck_id
 -- WHERE cards.user_id = $1 OR decks.user_id = $1
--- ORDER BY deck_name;
+-- ORDER BY deck_name, front;

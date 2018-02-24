@@ -1,12 +1,11 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*
   PROPS:
-  cardsAndDecks:          value on Redux state
+  cardsAndDecks:          prop from parent
   title, uniqBy, filter:  optional props from parent
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 import React from 'react';
 import _ from 'lodash';
-import { connect } from 'react-redux';
 import styles from '../styles';
 
 function PlayingCards({ cardsAndDecks, title, uniqBy, filter }) {
@@ -24,10 +23,9 @@ function PlayingCards({ cardsAndDecks, title, uniqBy, filter }) {
                 <div className="back">{card.back}</div>
               </div>
             </div>
-
           ))
       }
     </div>
   )
 }
-export default connect(state => state)(PlayingCards);
+export default PlayingCards;

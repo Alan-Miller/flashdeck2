@@ -3,20 +3,13 @@ import DecksList from '../DecksList/DecksList';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { 
-  getUser, 
-  swapDeck, 
-  getCardsAndDecks 
+  swapDeck
 } from '../../ducks/reducer';
 
 class Menu extends React.Component {
 
-  componentWillMount() {
-    this.props.getUser()
-    this.props.getCardsAndDecks()
-  }
-
   render() {
-    const { user } = this.props
+    const { user, cardsAndDecks } = this.props
 
     return (
       <div className="Menu">
@@ -35,6 +28,7 @@ class Menu extends React.Component {
                 <h5>swap?</h5>
                 <div className="deckDiv">
                   <DecksList
+                    cardsAndDecks={cardsAndDecks}
                     uniqBy={'deck_id'}
                     filter={deck => deck.deck_id}
                     deckFn={this.props.swapDeck}
@@ -65,9 +59,7 @@ class Menu extends React.Component {
 }
 
 const actionCreators = { 
-  getUser, 
-  swapDeck, 
-  getCardsAndDecks 
+  swapDeck
 }
 
-export default connect(state => state, actionCreators)(Menu);
+export default connect(null, actionCreators)(Menu);
