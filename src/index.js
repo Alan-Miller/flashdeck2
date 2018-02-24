@@ -4,7 +4,7 @@ import App from './App';
 import store from './store';
 import { Provider } from 'react-redux';
 import { unregister } from './registerServiceWorker';
-import './scss/main.css';
+import './styles/main.css';
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,46 +1,46 @@
-.SquareCards {
-  background: blue;
-  height: $gameCardH;
-  display: flex;
-  position: absolute;
-  left: calc(50vw - 125px);
-  bottom: calc(50vh - 175px);
+// .SquareCards {
+//   background: blue;
+//   height: $playingCardHeight;
+//   display: flex;
+//   position: absolute;
+//   left: calc(50vw - 125px);
+//   bottom: calc(50vh - 175px);
   
-  .cardContainer {
-    height: $gameCardH;
-    width: $gameCardW;
-    background: greenyellow;
-    perspective: 1000px;
-    position: relative;
-  }
-  .card {
-    height: $gameCardH;
-    width: $gameCardW;
-    position: absolute;
-    transform-style: preserve-3d;
-    transition: .5s;
-    transform: rotateY(0deg);
-    &.flipped {
-      transform: rotateY(180deg);
-    }
-  }
-  .front,
-  .back {
-    height: $gameCardH;
-    width: $gameCardW;
-    position: absolute;
-    top: 0;
-    left: 0;
-    backface-visibility: hidden;
-    border-radius: 20px;
-  }
-  .front {
-    z-index: 2;
-    transform: rotateY(0deg);
-    background: crimson;
-  }
-  .back {
-    transform: rotateY(180deg);
-    background: orange;
-  }
-}
+//   .cardContainer {
+//     height: $playingCardHeight;
+//     width: $playingCardWidth;
+//     background: greenyellow;
+//     perspective: 1000px;
+//     position: relative;
+//   }
+//   .card {
+//     height: $playingCardHeight;
+//     width: $playingCardWidth;
+//     position: absolute;
+//     transform-style: preserve-3d;
+//     transition: .5s;
+//     transform: rotateY(0deg);
+//     &.flipped {
+//       transform: rotateY(180deg);
+//     }
+//   }
+//   .front,
+//   .back {
+//     height: $playingCardHeight;
+//     width: $playingCardWidth;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     backface-visibility: hidden;
+//     border-radius: 20px;
+//   }
+//   .front {
+//     z-index: 2;
+//     transform: rotateY(0deg);
+//     background: crimson;
+//   }
+//   .back {
+//     transform: rotateY(180deg);
+//     background: orange;
+//   }
+// }

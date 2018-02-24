@@ -1,0 +1,22 @@
+.PilesLayout {
+  position: relative;
+  background: green;
+  height: calc(100vh - #{$InfoBarHeight});
+  width: 100vw;
+  @include flex($jc:center, $ai:center);
+
+  .cardContainer {
+    position: absolute;
+    transition: .5s;
+  }
+
+  // .PlayingCards {
+    // background: blue;
+    // height: $playingCardHeight;
+    // display: flex;
+    // position: absolute;
+    // left: calc(50vw - 125px);
+    // bottom: calc(50vh - 175px);
+  // }
+
+}

@@ -13,21 +13,25 @@
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*
   Mixins
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-@import './_mixins';
+@import './mixins';
+
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*
+  Styles shared by PlayingCards and SquareCards
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+@import './cards';
 
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*
 Components
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-@import './App';
 @import '../components/Menu/Menu';
 @import '../components/Quiz/Quiz';
 @import '../components/Manage/Manage';
-@import '../components/PlayingCards/PlayingCards';
+@import '../components/InfoBar/InfoBar';
+@import '../components/PilesLayout/PilesLayout';
+@import '../components/GridLayout/GridLayout';
 @import '../components/SquareCards/SquareCards';
 @import '../components/DataCards/DataCards';
-@import '../components/InfoBar/InfoBar';
-@import '../components/GridLayout/GridLayout';
-@import '../components/MainContainer/MainContainer';
-@import '../components/PilesLayout/PilesLayout';
+@import '../components/PlayingCards/PlayingCards';
 

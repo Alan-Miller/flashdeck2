@@ -1,0 +1,35 @@
+.PlayingCards, .SquareCards {
+  .cardContainer {
+    background: greenyellow;
+    perspective: 1000px;
+    position: absolute;
+    top: 0;
+  }
+  .card {
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: .5s;
+    transform: rotateY(0deg);
+    &.flipped {
+      transform: rotateY(180deg);
+    }
+  }
+  .front,
+  .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    border: thick solid purple;
+  }
+  .front {
+    z-index: 2;
+    transform: rotateY(0deg);
+    background: crimson;
+  }
+  .back {
+    transform: rotateY(180deg);
+    background: orange;
+  }
+}

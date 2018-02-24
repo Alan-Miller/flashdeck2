@@ -15,8 +15,6 @@ const initialState = {
   reducer function
 /*———————————————————————————————————————————————————————————————*/
 export default function (state = initialState, action) {
-  console.log("AXION", action)
-  console.log("STATE", state)
   switch (action.type) {
 
     case types.GET_USER + '_FULFILLED':
@@ -81,23 +79,20 @@ export function selectDeckID(deckID) {
 }
 
 export function getCardsAndDecks() {
-  const payload = axios.get('/api/cards')
-    .then(cards => { console.log("crds", cards); return cards.data })
-    .catch(err => console.log(`Error getting cards and decks: ${err}`))
   return {
     type: types.GET_CARDS_AND_DECKS,
-    payload
+    payload: axios.get('/api/cards')
+      .then(cards => cards.data)
+      .catch(err => console.log(`Error getting cards and decks: ${err}`))
   }
 }
 
 export function addCardsToDeck(cardIDs, deckID) {
-  const payload = axios.post(`/api/decks/${deckID}`, { cardIDs })
-    .then(decks => {console.log("dks", decks); return decks.data})
-    .catch(err => console.log(`Error adding cards to deck: ${err}`))
-    console.log("PAYLOAD", payload)
   return {
     type: types.ADD_CARDS_TO_DECK,
-    payload
+    payload: axios.post(`/api/decks/${deckID}`, { cardIDs })
+      .then(decks => decks.data)
+      .catch(err => console.log(`Error adding cards to deck: ${err}`))
   }
 }
 
